@@ -19,7 +19,7 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 
 	private String screen, speaker;
 
-    private Button logInButton, signUpButton;
+    private tButton logInButton, signUpButton;
 
 	private ArrayList<Button> buttons;
 
@@ -50,8 +50,8 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 		buttons = setButton();
 
         // buttons
-        logInButton = new Button("log in", "login", 135, 225, new Color(80, 105, 62), Color.white);
-		signUpButton = new Button("sign up", "signup", 125, 345, new Color(80, 105, 62), Color.white);
+        logInButton = new tButton("log in", "login", 135, 225, new Color(80, 105, 62), Color.white);
+		signUpButton = new tButton("sign up", "signup", 125, 345, new Color(80, 105, 62), Color.white);
 	
 		
 		
@@ -117,8 +117,11 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 			for (int i = 0; i < buttons.size(); i++) {
 				Button b = buttons.get(i);
 
-				b.setMetrics(g2d);
-				b.drawButton(g2d);
+				if (b instanceof tButton){
+					((tButton)b).setMetrics(g2d);
+					((tButton)b).drawButton(g2d);
+				}
+				
 			}
 		}
 

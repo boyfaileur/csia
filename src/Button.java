@@ -1,7 +1,4 @@
 import java.awt.Color;
-import java.awt.Font;
-import java.awt.FontMetrics;
-import java.awt.Graphics;
 
 public class Button {
 
@@ -13,42 +10,19 @@ public class Button {
 
     }
 
-    public Button(String label, int x1, int y1){
-
-        x = x1;
-        y = y1;
-        l = label;
-
-        
-    }
-
-    public Button(String label, String destination, int x1, int y1, Color boxColor, Color textColor){
+    public Button(String label, String destination, int x1, int y1){
 
         x = x1;
         y = y1;
         l = label;
         d = destination;
-        bC = boxColor;
-        tC = textColor;
+
         
     }
+
 
     // methods
-    public void setMetrics(Graphics g2d){
-        FontMetrics metrics = g2d.getFontMetrics(new Font("Jersey 10", Font.PLAIN, 35));
-
-
-        w = metrics.stringWidth(l)+20;
-        h = metrics.getHeight()+20;
-    }
-
-    public void drawButton(Graphics g2d){
-        
-        g2d.setColor(bC);
-        g2d.fillRoundRect(x, y, w, h, 10, 10);
-        g2d.setColor(tC);
-        g2d.drawString(l, x+10, y+((h/2)+10));
-    }
+    
 
     public boolean clicked(int mx, int my ){
         boolean temp;
