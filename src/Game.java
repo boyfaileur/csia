@@ -21,6 +21,7 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 
     private tButton logInButton, signUpButton;
 	private iButton homeButton;
+	private textInput uNInput, pWInput;
 
 	private ArrayList<Button> buttons;
 
@@ -54,6 +55,8 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
         logInButton = new tButton("log in", "login", 135, 225, new Color(80, 105, 62), Color.white);
 		signUpButton = new tButton("sign up", "signup", 125, 345, new Color(80, 105, 62), Color.white);
 		homeButton = new iButton("assets/icons/hIcon.png", "landing", 200, 200,100, 100);
+		uNInput = new textInput(20, 100, 300, 30);
+		pWInput = new textInput(20, 150, 300, 30);
 	
 		
 		
@@ -127,6 +130,10 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 				if (b instanceof iButton){
 					((iButton)b).drawButton(g2d);
 				}
+
+				if (b instanceof textInput){
+					((textInput)b).drawTextInput(g2d);
+				}
 				
 			}
 		}
@@ -161,7 +168,8 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 		while(!buttons.isEmpty()){
 			buttons.remove(buttons.get(0));
 		}
-		buttons.add(homeButton);
+		buttons.add(uNInput);
+		buttons.add(pWInput);
 	}
 
 	public void sculpting(){
@@ -190,6 +198,8 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 		key= e.getKeyCode();
 		System.out.println(key);
 
+		
+
 	
 			
 		// player movement
@@ -203,6 +213,23 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 	@Override
 	public void keyReleased(KeyEvent e) {
 		
+		if (!buttons.isEmpty()){
+			for (int i = 0; i < buttons.size(); i++) {
+
+				if (buttons.get(i) instanceof textInput){
+
+					textInput t = (textInput)buttons.get(i);
+					if (t.getBeingTyped()){
+
+						if(key==8&&!t.getS().equals("")){
+							t.setS(t.getS().substring(0, t.getS().length() - 1));
+						}else if (key!=16){
+							t.setS(t.getS()+e.getKeyChar());
+						}	
+					}
+				}
+
+			}}
 
 	}
 
@@ -264,9 +291,23 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 		if (!buttons.isEmpty()){
 			for (int i = 0; i < buttons.size(); i++) {
 				if (buttons.get(i).clicked(x, y)){
-					screen = buttons.get(i).getD();
+
+					if ((buttons.get(i) instanceof iButton|| buttons.get(i) instanceof tButton)){
+						screen = buttons.get(i).getD();
 					System.out.println(screen);
+					}
+
+					if (buttons.get(i) instanceof textInput){
+						((textInput)buttons.get(i)).setBeingTyped(true);
+					}
+					
+				} else {
+					if (buttons.get(i) instanceof textInput){
+						((textInput)buttons.get(i)).setBeingTyped(false);
+					}
 				}
+
+				
 
 			}}
 		

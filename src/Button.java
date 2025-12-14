@@ -10,6 +10,15 @@ public class Button {
 
     }
 
+    public Button(int x1, int y1, int width, int height){
+
+        x = x1;
+        y = y1;
+        w = width;
+        h = height;
+  
+    }
+
     public Button(String label, String destination, int x1, int y1){
 
         x = x1;
