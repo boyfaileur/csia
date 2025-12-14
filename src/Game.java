@@ -50,8 +50,8 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 		buttons = setButton();
 
         // buttons
-        logInButton = new Button("log in", 135, 225, new Color(80, 105, 62), Color.white);
-		signUpButton = new Button("sign up", 125, 345, new Color(80, 105, 62), Color.white);
+        logInButton = new Button("log in", "login", 135, 225, new Color(80, 105, 62), Color.white);
+		signUpButton = new Button("sign up", "signup", 125, 345, new Color(80, 105, 62), Color.white);
 	
 		
 		
@@ -127,6 +127,11 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 			case "landing":
 			landing(g2d);
 			break;
+			case "login":
+			login(g2d);
+			break;
+			case "signup":
+			break;
 		}
 		
 
@@ -135,9 +140,20 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 	// different screens
 
 	public void landing(Graphics g2d){
+		while(!buttons.isEmpty()){
+			buttons.remove(buttons.get(0));
+		}
 		buttons.add(logInButton);
 		buttons.add(signUpButton);
 
+	}
+
+	public void login(Graphics g2d){
+		while(!buttons.isEmpty()){
+			buttons.remove(buttons.get(0));
+		}
+
+		g2d.drawString("hai", x, y);
 	}
 
 	public void sculpting(){
@@ -239,7 +255,11 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 
 		if (!buttons.isEmpty()){
 			for (int i = 0; i < buttons.size(); i++) {
-				System.out.println(buttons.get(i).clicked(x, y));
+				if (buttons.get(i).clicked(x, y)){
+					screen = buttons.get(i).getD();
+					System.out.println(screen);
+				}
+
 			}}
 		
 	}

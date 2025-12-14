@@ -6,7 +6,7 @@ import java.awt.Graphics;
 public class Button {
 
     private int x, y, w, h;
-    private String l;
+    private String l, d;
     private Color bC, tC;
 
     public Button(){
@@ -22,11 +22,12 @@ public class Button {
         
     }
 
-    public Button(String label, int x1, int y1, Color boxColor, Color textColor){
+    public Button(String label, String destination, int x1, int y1, Color boxColor, Color textColor){
 
         x = x1;
         y = y1;
         l = label;
+        d = destination;
         bC = boxColor;
         tC = textColor;
         
@@ -116,5 +117,13 @@ public class Button {
 
     public void settC(Color tC) {
         this.tC = tC;
+    }
+
+    public String getD() {
+        return d;
+    }
+
+    public void setD(String d) {
+        this.d = d;
     }
 }
