@@ -20,8 +20,9 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 	private String screen, speaker;
 
     private tButton logInButton, signUpButton;
+	private iButton homeButton;
 
-	private ArrayList<Button> buttons;
+	private ArrayList<dButton> buttons;
 
 	// lists
 
@@ -52,14 +53,15 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
         // buttons
         logInButton = new tButton("log in", "login", 135, 225, new Color(80, 105, 62), Color.white);
 		signUpButton = new tButton("sign up", "signup", 125, 345, new Color(80, 105, 62), Color.white);
+		homeButton = new iButton("assets/icons/hIcon.png", "landing", 200, 200,100, 100);
 	
 		
 		
 	}
 
 	// setting arraylists
-	public ArrayList<Button> setButton(){
-		ArrayList<Button> temp = new ArrayList<Button>();
+	public ArrayList<dButton> setButton(){
+		ArrayList<dButton> temp = new ArrayList<dButton>();
 
 		return temp;
 	}
@@ -115,11 +117,15 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 
 		if (!buttons.isEmpty()){
 			for (int i = 0; i < buttons.size(); i++) {
-				Button b = buttons.get(i);
+				dButton b = buttons.get(i);
 
 				if (b instanceof tButton){
 					((tButton)b).setMetrics(g2d);
 					((tButton)b).drawButton(g2d);
+				}
+
+				if (b instanceof iButton){
+					((iButton)b).drawButton(g2d);
 				}
 				
 			}
@@ -155,8 +161,7 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 		while(!buttons.isEmpty()){
 			buttons.remove(buttons.get(0));
 		}
-
-		g2d.drawString("hai", x, y);
+		buttons.add(homeButton);
 	}
 
 	public void sculpting(){
