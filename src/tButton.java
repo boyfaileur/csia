@@ -3,7 +3,7 @@ import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 
-public class tButton extends dButton{
+public class tButton extends Button{
 
     private Color bC, tC;
 

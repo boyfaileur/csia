@@ -1,16 +1,16 @@
 import java.awt.Color;
 
-public class dButton {
+public class Button {
 
     private int x, y, w, h;
     private String l, d;
     private Color bC, tC;
 
-    public dButton(){
+    public Button(){
 
     }
 
-    public dButton(String label, String destination, int x1, int y1){
+    public Button(String label, String destination, int x1, int y1){
 
         x = x1;
         y = y1;
@@ -20,7 +20,7 @@ public class dButton {
         
     }
 
-    public dButton(String label, String destination, int x1, int y1, int width, int height){
+    public Button(String label, String destination, int x1, int y1, int width, int height){
 
         x = x1;
         y = y1;

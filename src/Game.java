@@ -22,7 +22,7 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
     private tButton logInButton, signUpButton;
 	private iButton homeButton;
 
-	private ArrayList<dButton> buttons;
+	private ArrayList<Button> buttons;
 
 	// lists
 
@@ -60,8 +60,8 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 	}
 
 	// setting arraylists
-	public ArrayList<dButton> setButton(){
-		ArrayList<dButton> temp = new ArrayList<dButton>();
+	public ArrayList<Button> setButton(){
+		ArrayList<Button> temp = new ArrayList<Button>();
 
 		return temp;
 	}
@@ -117,7 +117,7 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 
 		if (!buttons.isEmpty()){
 			for (int i = 0; i < buttons.size(); i++) {
-				dButton b = buttons.get(i);
+				Button b = buttons.get(i);
 
 				if (b instanceof tButton){
 					((tButton)b).setMetrics(g2d);

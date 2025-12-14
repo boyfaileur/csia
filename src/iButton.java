@@ -1,7 +1,7 @@
 import java.awt.Graphics;
 import javax.swing.ImageIcon;
 
-public class iButton extends dButton{
+public class iButton extends Button{
 
 
     public iButton(){
