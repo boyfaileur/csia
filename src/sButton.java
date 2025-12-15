@@ -1,7 +1,12 @@
 
 import java.awt.Color;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 
 public class sButton extends tButton{
 
@@ -30,6 +35,32 @@ public class sButton extends tButton{
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+    }
+
+    public void makePlant(File file, String username, String pName){
+
+        // System.out.println("file: " + file.toString());
+
+        File destFolder = new File("assets/images/" + username + "/");
+            if (!destFolder.exists()) {
+                destFolder.mkdirs(); 
+            }
+
+            String extension = "";
+            int dotIndex = file.getName().lastIndexOf('.');
+            if (dotIndex > 0) {
+            extension = file.getName().substring(dotIndex); // includes the dot, e.g. ".png"
+            }
+
+            Path destPath = Paths.get(destFolder.getPath(), pName + extension);
+
+            try {
+                Files.copy(file.toPath(), destPath, StandardCopyOption.REPLACE_EXISTING);
+               
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
     }
 
 

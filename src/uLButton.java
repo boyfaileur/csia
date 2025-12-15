@@ -1,10 +1,5 @@
 import java.awt.Color;
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import javax.swing.JFileChooser;
 
 public class uLButton extends tButton{
@@ -15,8 +10,8 @@ public class uLButton extends tButton{
         super(l, d, x, y, bC, tC);
     }
 
-    public String uploadIMG(String username){
-        String temp = "";
+    public File uploadIMG(){
+        File temp = new File("");
 
         JFileChooser uploader = new JFileChooser();
         uploader.setDialogTitle("");
@@ -27,24 +22,12 @@ public class uLButton extends tButton{
 
         int result = uploader.showOpenDialog(null);
         if (result == JFileChooser.APPROVE_OPTION) {
-            File selectedFile = uploader.getSelectedFile();
+            temp = uploader.getSelectedFile();    
+            // System.out.println("file chosen: " + temp.toString());
+            
+         }
 
-            File destFolder = new File("assets/images/" + username + "/");
-            if (!destFolder.exists()) {
-                destFolder.mkdirs(); 
-            }
 
-            Path destPath = Paths.get(destFolder.getPath(), selectedFile.getName());
-
-            try {
-                Files.copy(selectedFile.toPath(), destPath, StandardCopyOption.REPLACE_EXISTING);
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-
-            temp = destPath.toString();
-     }
      return temp;
 }
 

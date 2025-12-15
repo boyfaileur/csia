@@ -7,7 +7,10 @@ public class Main extends JFrame{
 	
 	public Main () {
 		super("comsci ia");
-		setSize(350, 700);		Game play = new Game();
+		setSize(350, 700);		
+		
+		
+		Game play = new Game();
 		((Component) play).setFocusable(true);
 
 		

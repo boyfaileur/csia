@@ -22,9 +22,10 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
     private tButton logInButton, signUpButton;
 	private iButton homeButton, gHButton, weatherButton, aPButton;
 	private textInput uNInput, pWInput, pNInput;
-	private sButton saveButton;
+	private sButton saveButton, savePlant;
 	private cButton checkButton;
 	private uLButton imgUpload;
+	private File tempFile;
 
 	private ArrayList<Button> buttons;
 
@@ -51,6 +52,9 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 		x=0;
 		y=0;
 
+		// files
+		tempFile = new File("");
+
 		// lists
 		buttons = setButton();
 
@@ -68,6 +72,8 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 		// save and check buttons
 		saveButton = new sButton("save", "landing", 135, 225, new Color(80, 105, 62), Color.white);
 		checkButton = new cButton ("enter", "home", 135, 225, new Color(80, 105, 62), Color.white);
+
+		savePlant = new sButton("confirm", "greenhouse", 135, 500, new Color(80, 105, 62), Color.white);
 
 		// upload button
 		imgUpload = new uLButton("upload", "who cares", 20, 285, new Color(80, 105, 62), Color.white);
@@ -274,6 +280,8 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 		g2d.drawString("PLANT IMAGE", 25, 275);
 		buttons.add(imgUpload);
 
+		buttons.add(savePlant);
+
 	}
 
 	// other 
@@ -389,13 +397,20 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 		
 
 		if (!buttons.isEmpty()){
+
+
 			for (int i = 0; i < buttons.size(); i++) {
 				if (buttons.get(i).clicked(x, y)){
+
+					
 
 					if ((buttons.get(i) instanceof iButton|| buttons.get(i) instanceof tButton)){
 
 						if(buttons.get(i) instanceof uLButton){
-							System.out.println(((uLButton)buttons.get(i)).uploadIMG(uNInput.getS()));
+							// ((uLButton)buttons.get(i)).uploadIMG();
+							tempFile = ((uLButton)buttons.get(i)).uploadIMG();
+
+
 						}
 
 						if (buttons.get(i).switchScreen(uNInput.getS(), pWInput.getS())){
@@ -410,12 +425,16 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 
 					if (buttons.get(i) instanceof sButton){
 
+						String tempName = "";
+
 						for (int j = 0; j < buttons.size(); j++) {
 							if (buttons.get(j) instanceof textInput){
 
 								if (buttons.get(j)==uNInput){
 									textInput password = new textInput(j, j, i, j);
-								textInput username = uNInput;
+									textInput username = uNInput;
+
+								
 
 								for (int m = 0; m < buttons.size(); m++) {
 									if(buttons.get(m)==pWInput){
@@ -423,14 +442,28 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 									}
 
 								}
-
-								((sButton)buttons.get(i)).save(username,password);
 								
+								((sButton)buttons.get(i)).save(username,password);
+							}
+
+							if (buttons.get(j).equals(pNInput)){
+								tempName = pNInput.getS();
+								System.out.println(tempName);
+
 							}
 							((textInput)buttons.get(j)).setS("");
 							}
+
+							// if (buttons.get(j) instanceof uLButton){
+
+							// 	
+							// 	System.out.println(tempFile.toString());	
+							// }
 							
 						}
+
+						System.out.println("file: " + tempFile.toString());
+						((sButton)buttons.get(i)).makePlant(tempFile, uNInput.getS(), tempName);
 						
 					}
 					
