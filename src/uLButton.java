@@ -32,7 +32,7 @@ public class uLButton extends tButton{
 
             // s.add(); placeholder, you need to add an instance of pic to s
 
-            s.add(new Pic(temp.getPath(), 100, 100, 20, 20));
+            s.add(new Pic(temp.getPath(), 150, 150, 20, 350));
             
          }
 

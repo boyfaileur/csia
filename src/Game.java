@@ -70,7 +70,7 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 		saveButton = new sButton("save", "landing", 135, 225, new Color(80, 105, 62), Color.white);
 		checkButton = new cButton ("enter", "home", 135, 225, new Color(80, 105, 62), Color.white);
 
-		savePlant = new sButton("confirm", "greenhouse", 135, 500, new Color(80, 105, 62), Color.white);
+		savePlant = new sButton("confirm", "greenhouse", 128, 510, new Color(80, 105, 62), Color.white);
 
 		// upload button
 		imgUpload = new uLButton("upload", "who cares", 20, 285, new Color(80, 105, 62), Color.white);
@@ -195,10 +195,15 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 
 	// different screens
 
-	public void landing(Graphics g2d){
+	public void removal(){
 		while(!buttons.isEmpty()){
 			buttons.remove(buttons.get(0));
 		}
+
+	}
+
+	public void landing(Graphics g2d){
+		removal();
 		g2d.setColor(Color.BLACK);
 		g2d.drawString("DIGIGARDEN", 115, 150);
 		buttons.add(logInButton);
@@ -207,18 +212,14 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 	}
 
 	public void login(){
-		while(!buttons.isEmpty()){
-			buttons.remove(buttons.get(0));
-		}
+		removal();
 		buttons.add(uNInput);
 		buttons.add(pWInput);
 		buttons.add(checkButton);
 	}
 
 	public void signup(){
-		while(!buttons.isEmpty()){
-			buttons.remove(buttons.get(0));
-		}
+		removal();
 		buttons.add(uNInput);
 		buttons.add(pWInput);
 		buttons.add(saveButton);
@@ -226,9 +227,7 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 	}
 
 	public void home(Graphics g2d){
-		while(!buttons.isEmpty()){
-			buttons.remove(buttons.get(0));
-		}
+		removal();
 
 		g2d.setColor(Color.BLACK);
 		g2d.drawString("DIGIGARDEN", 115, 150);
@@ -240,9 +239,7 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 	}
 
 	public void weather(Graphics g2d){
-		while(!buttons.isEmpty()){
-			buttons.remove(buttons.get(0));
-		}
+		removal();
 
 		g2d.setColor(Color.BLACK);
 		g2d.drawString("WEATHER", 115, 150);
@@ -254,9 +251,7 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 	}
 
 	public void greenhouse(Graphics g2d){
-		while(!buttons.isEmpty()){
-			buttons.remove(buttons.get(0));
-		}
+		removal();
 
 		g2d.setColor(Color.BLACK);
 		g2d.drawString("GREENHOUSE", 112, 100);
@@ -269,9 +264,7 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 	}
 
 	public void plantAdd(Graphics g2d){
-		while(!buttons.isEmpty()){
-			buttons.remove(buttons.get(0));
-		}
+		removal();
 
 		g2d.setColor(Color.BLACK);
 		g2d.drawString("ADD A PLANT", 110, 100);
@@ -465,7 +458,7 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 						}
 
 						System.out.println("file: " + tempFile.toString());
-						((sButton)buttons.get(i)).makePlant(tempFile, uNInput.getS(), tempName);
+						((sButton)buttons.get(i)).makePlant(tempFile, uNInput.getS(), tempName, images);
 						
 					}
 					

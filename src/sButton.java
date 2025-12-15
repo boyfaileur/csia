@@ -7,6 +7,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
 
 public class sButton extends tButton{
 
@@ -37,7 +38,7 @@ public class sButton extends tButton{
         }
     }
 
-    public void makePlant(File file, String username, String pName){
+    public void makePlant(File file, String username, String pName, ArrayList<Pic> s){
 
         // System.out.println("file: " + file.toString());
 
@@ -61,6 +62,8 @@ public class sButton extends tButton{
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
+
+            s.remove(0);
     }
 
 
