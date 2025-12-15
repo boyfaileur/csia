@@ -22,6 +22,7 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
     private tButton logInButton, signUpButton;
 	private iButton homeButton;
 	private textInput uNInput, pWInput;
+	private sButton saveButton;
 
 	private ArrayList<Button> buttons;
 
@@ -57,6 +58,7 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 		homeButton = new iButton("assets/icons/hIcon.png", "landing", 200, 200,100, 100);
 		uNInput = new textInput(20, 100, 300, 30);
 		pWInput = new textInput(20, 150, 300, 30);
+		saveButton = new sButton("save", "landing", 135, 225, new Color(80, 105, 62), Color.white);
 	
 		
 		
@@ -141,12 +143,13 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 		
 		switch (screen){
 			case "landing":
-			landing(g2d);
+			landing();
 			break;
 			case "login":
-			login(g2d);
+			login();
 			break;
 			case "signup":
+			signup();
 			break;
 		}
 		
@@ -155,7 +158,7 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 
 	// different screens
 
-	public void landing(Graphics g2d){
+	public void landing(){
 		while(!buttons.isEmpty()){
 			buttons.remove(buttons.get(0));
 		}
@@ -164,7 +167,7 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 
 	}
 
-	public void login(Graphics g2d){
+	public void login(){
 		while(!buttons.isEmpty()){
 			buttons.remove(buttons.get(0));
 		}
@@ -172,7 +175,13 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 		buttons.add(pWInput);
 	}
 
-	public void sculpting(){
+	public void signup(){
+		while(!buttons.isEmpty()){
+			buttons.remove(buttons.get(0));
+		}
+		buttons.add(uNInput);
+		buttons.add(pWInput);
+		buttons.add(saveButton);
 
 	}
 
@@ -293,12 +302,39 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 				if (buttons.get(i).clicked(x, y)){
 
 					if ((buttons.get(i) instanceof iButton|| buttons.get(i) instanceof tButton)){
+						
 						screen = buttons.get(i).getD();
 					System.out.println(screen);
 					}
 
 					if (buttons.get(i) instanceof textInput){
 						((textInput)buttons.get(i)).setBeingTyped(true);
+					}
+
+					if (buttons.get(i) instanceof sButton){
+
+						for (int j = 0; j < buttons.size(); j++) {
+							if (buttons.get(j) instanceof textInput){
+
+								if (buttons.get(j)==uNInput){
+									textInput password = new textInput(j, j, i, j);
+								textInput username = uNInput;
+
+								for (int m = 0; m < buttons.size(); m++) {
+									if(buttons.get(m)==pWInput){
+										password=pWInput;
+									}
+
+								}
+
+								((sButton)buttons.get(i)).save(username,password);
+								
+							}
+							((textInput)buttons.get(j)).setS("");
+							}
+							
+						}
+						
 					}
 					
 				} else {
