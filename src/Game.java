@@ -3,11 +3,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Scanner;
-
 import javax.swing.*; 
 
 
@@ -166,9 +162,11 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 				System.out.println(images.get(i).getP());
 			}
 		}
+		
 
 		
 		switch (screen){
+			
 			case "landing":
 			landing(g2d);
 			break;
