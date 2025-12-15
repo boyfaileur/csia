@@ -70,7 +70,7 @@ public class Button {
                 temp = false;
                 this.setL("try again");
             }
-        } else{
+        } else if (!(this instanceof uLButton)){
             temp = true;
         }
 

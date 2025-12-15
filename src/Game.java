@@ -20,10 +20,11 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 	private String screen, speaker;
 
     private tButton logInButton, signUpButton;
-	private iButton homeButton, gHButton, weatherButton;
-	private textInput uNInput, pWInput;
+	private iButton homeButton, gHButton, weatherButton, aPButton;
+	private textInput uNInput, pWInput, pNInput;
 	private sButton saveButton;
 	private cButton checkButton;
+	private uLButton imgUpload;
 
 	private ArrayList<Button> buttons;
 
@@ -62,15 +63,21 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 		// text inputs
 		uNInput = new textInput(20, 100, 300, 30);
 		pWInput = new textInput(20, 150, 300, 30);
+		pNInput = new textInput(20, 210, 300, 30);
 
 		// save and check buttons
 		saveButton = new sButton("save", "landing", 135, 225, new Color(80, 105, 62), Color.white);
 		checkButton = new cButton ("enter", "home", 135, 225, new Color(80, 105, 62), Color.white);
 
+		// upload button
+		imgUpload = new uLButton("upload", "who cares", 20, 285, new Color(80, 105, 62), Color.white);
+
 		// icon buttons
 		homeButton = new iButton("assets/icons/hIcon.png", "home", 148, 592,75, 75);
 		gHButton = new iButton("assets/icons/pIcon.png", "greenhouse", 260, 592,75, 75);
 		weatherButton = new iButton("assets/icons/wIcon.png", "weather", 10, 575,100, 100);
+
+		aPButton = new iButton("assets/icons/addIcon.png", "plantAdd", 150, 125, 75, 75);
 		
 	}
 
@@ -170,6 +177,9 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 			case "greenhouse":
 				greenhouse(g2d);
 			break;
+			case "plantAdd":
+				plantAdd(g2d);
+			break;
 		}
 		
 
@@ -241,11 +251,28 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 		}
 
 		g2d.setColor(Color.BLACK);
-		g2d.drawString("GREENHOUSE", 115, 150);
+		g2d.drawString("GREENHOUSE", 112, 100);
 
 		buttons.add(homeButton);
 		buttons.add(gHButton);
 		buttons.add(weatherButton);
+		buttons.add(aPButton);
+
+	}
+
+	public void plantAdd(Graphics g2d){
+		while(!buttons.isEmpty()){
+			buttons.remove(buttons.get(0));
+		}
+
+		g2d.setColor(Color.BLACK);
+		g2d.drawString("ADD A PLANT", 110, 100);
+		
+		g2d.drawString("PLANT NAME", 25, 200);
+		buttons.add(pNInput);
+
+		g2d.drawString("PLANT IMAGE", 25, 275);
+		buttons.add(imgUpload);
 
 	}
 
@@ -366,6 +393,10 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 				if (buttons.get(i).clicked(x, y)){
 
 					if ((buttons.get(i) instanceof iButton|| buttons.get(i) instanceof tButton)){
+
+						if(buttons.get(i) instanceof uLButton){
+							System.out.println(((uLButton)buttons.get(i)).uploadIMG(uNInput.getS()));
+						}
 
 						if (buttons.get(i).switchScreen(uNInput.getS(), pWInput.getS())){
 							screen = buttons.get(i).getD();
