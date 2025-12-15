@@ -60,7 +60,7 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 		uNInput = new textInput(20, 100, 300, 30);
 		pWInput = new textInput(20, 150, 300, 30);
 		saveButton = new sButton("save", "landing", 135, 225, new Color(80, 105, 62), Color.white);
-		checkButton = new cButton ("enter", "landing", 135, 225, new Color(80, 105, 62), Color.white);
+		checkButton = new cButton ("enter", "home", 135, 225, new Color(80, 105, 62), Color.white);
 	
 		
 		
@@ -145,13 +145,16 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 		
 		switch (screen){
 			case "landing":
-			landing();
+			landing(g2d);
 			break;
 			case "login":
 			login();
 			break;
 			case "signup":
 			signup();
+			break;
+			case "home":
+				home(g2d);
 			break;
 		}
 		
@@ -160,10 +163,12 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 
 	// different screens
 
-	public void landing(){
+	public void landing(Graphics g2d){
 		while(!buttons.isEmpty()){
 			buttons.remove(buttons.get(0));
 		}
+		g2d.setColor(Color.BLACK);
+		g2d.drawString("DIGIGARDEN", 115, 150);
 		buttons.add(logInButton);
 		buttons.add(signUpButton);
 
@@ -186,6 +191,15 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 		buttons.add(pWInput);
 		buttons.add(saveButton);
 
+	}
+
+	public void home(Graphics g2d){
+		while(!buttons.isEmpty()){
+			buttons.remove(buttons.get(0));
+		}
+
+		g2d.setColor(Color.BLACK);
+		g2d.drawString("DIGIGARDEN", 115, 150);
 	}
 
 	// other 
