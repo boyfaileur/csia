@@ -1,5 +1,6 @@
 import java.awt.Color;
 import java.io.File;
+import java.util.ArrayList;
 import javax.swing.JFileChooser;
 
 public class uLButton extends tButton{
@@ -10,7 +11,7 @@ public class uLButton extends tButton{
         super(l, d, x, y, bC, tC);
     }
 
-    public File uploadIMG(){
+    public File uploadIMG(ArrayList<Pic> s){
         File temp = new File("");
 
         JFileChooser uploader = new JFileChooser();
@@ -24,6 +25,14 @@ public class uLButton extends tButton{
         if (result == JFileChooser.APPROVE_OPTION) {
             temp = uploader.getSelectedFile();    
             // System.out.println("file chosen: " + temp.toString());
+
+            while (!s.isEmpty()){
+                s.remove(0);
+            }
+
+            // s.add(); placeholder, you need to add an instance of pic to s
+
+            s.add(new Pic(temp.getPath(), 100, 100, 20, 20));
             
          }
 

@@ -28,8 +28,8 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 	private File tempFile;
 
 	private ArrayList<Button> buttons;
+	private ArrayList<Pic> images;
 
-	// lists
 
 	
 
@@ -56,7 +56,8 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 		tempFile = new File("");
 
 		// lists
-		buttons = setButton();
+		buttons = new ArrayList<Button>();
+		images = new ArrayList<Pic>();
 
         // BUTTONS
 
@@ -88,11 +89,7 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 	}
 
 	// setting arraylists
-	public ArrayList<Button> setButton(){
-		ArrayList<Button> temp = new ArrayList<Button>();
 
-		return temp;
-	}
 
 
 	// you can probably set the characters and stuff in backgrounds
@@ -160,6 +157,13 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 					((textInput)b).drawTextInput(g2d);
 				}
 				
+			}
+		}
+
+		if (!images.isEmpty()){
+			for (int i = 0; i < images.size(); i++) {
+				g2d.drawImage(new ImageIcon(images.get(i).getP()).getImage(), images.get(i).getX(), images.get(i).getY(), images.get(i).getW(), images.get(i).getH(), this);
+				System.out.println(images.get(i).getP());
 			}
 		}
 
@@ -408,7 +412,7 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 
 						if(buttons.get(i) instanceof uLButton){
 							// ((uLButton)buttons.get(i)).uploadIMG();
-							tempFile = ((uLButton)buttons.get(i)).uploadIMG();
+							tempFile = ((uLButton)buttons.get(i)).uploadIMG(images);
 
 
 						}
