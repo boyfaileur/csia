@@ -20,7 +20,7 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 	private String screen, speaker;
 
     private tButton logInButton, signUpButton;
-	private iButton homeButton;
+	private iButton homeButton, gHButton, weatherButton;
 	private textInput uNInput, pWInput;
 	private sButton saveButton;
 	private cButton checkButton;
@@ -53,16 +53,24 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 		// lists
 		buttons = setButton();
 
-        // buttons
+        // BUTTONS
+
+		// text buttons
         logInButton = new tButton("log in", "login", 135, 225, new Color(80, 105, 62), Color.white);
 		signUpButton = new tButton("sign up", "signup", 125, 345, new Color(80, 105, 62), Color.white);
-		homeButton = new iButton("assets/icons/hIcon.png", "landing", 200, 200,100, 100);
+		
+		// text inputs
 		uNInput = new textInput(20, 100, 300, 30);
 		pWInput = new textInput(20, 150, 300, 30);
+
+		// save and check buttons
 		saveButton = new sButton("save", "landing", 135, 225, new Color(80, 105, 62), Color.white);
 		checkButton = new cButton ("enter", "home", 135, 225, new Color(80, 105, 62), Color.white);
-	
-		
+
+		// icon buttons
+		homeButton = new iButton("assets/icons/hIcon.png", "home", 148, 592,75, 75);
+		gHButton = new iButton("assets/icons/pIcon.png", "greenhouse", 260, 592,75, 75);
+		weatherButton = new iButton("assets/icons/wIcon.png", "weather", 10, 575,100, 100);
 		
 	}
 
@@ -156,6 +164,12 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 			case "home":
 				home(g2d);
 			break;
+			case "weather":
+				weather(g2d);
+			break;
+			case "greenhouse":
+				greenhouse(g2d);
+			break;
 		}
 		
 
@@ -200,6 +214,39 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 
 		g2d.setColor(Color.BLACK);
 		g2d.drawString("DIGIGARDEN", 115, 150);
+
+		buttons.add(homeButton);
+		buttons.add(gHButton);
+		buttons.add(weatherButton);
+
+	}
+
+	public void weather(Graphics g2d){
+		while(!buttons.isEmpty()){
+			buttons.remove(buttons.get(0));
+		}
+
+		g2d.setColor(Color.BLACK);
+		g2d.drawString("WEATHER", 115, 150);
+
+		buttons.add(homeButton);
+		buttons.add(gHButton);
+		buttons.add(weatherButton);
+
+	}
+
+	public void greenhouse(Graphics g2d){
+		while(!buttons.isEmpty()){
+			buttons.remove(buttons.get(0));
+		}
+
+		g2d.setColor(Color.BLACK);
+		g2d.drawString("GREENHOUSE", 115, 150);
+
+		buttons.add(homeButton);
+		buttons.add(gHButton);
+		buttons.add(weatherButton);
+
 	}
 
 	// other 
