@@ -23,6 +23,7 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 	private iButton homeButton;
 	private textInput uNInput, pWInput;
 	private sButton saveButton;
+	private cButton checkButton;
 
 	private ArrayList<Button> buttons;
 
@@ -59,6 +60,7 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 		uNInput = new textInput(20, 100, 300, 30);
 		pWInput = new textInput(20, 150, 300, 30);
 		saveButton = new sButton("save", "landing", 135, 225, new Color(80, 105, 62), Color.white);
+		checkButton = new cButton ("enter", "landing", 135, 225, new Color(80, 105, 62), Color.white);
 	
 		
 		
@@ -173,6 +175,7 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 		}
 		buttons.add(uNInput);
 		buttons.add(pWInput);
+		buttons.add(checkButton);
 	}
 
 	public void signup(){
@@ -302,8 +305,10 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 				if (buttons.get(i).clicked(x, y)){
 
 					if ((buttons.get(i) instanceof iButton|| buttons.get(i) instanceof tButton)){
-						
-						screen = buttons.get(i).getD();
+
+						if (buttons.get(i).switchScreen(uNInput.getS(), pWInput.getS())){
+							screen = buttons.get(i).getD();
+						}
 					System.out.println(screen);
 					}
 

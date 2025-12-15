@@ -58,6 +58,25 @@ public class Button {
         return temp;
     }
 
+    public boolean switchScreen(String username, String password){
+
+        boolean temp = false;
+      
+        if (this instanceof cButton){
+            // this is where u put the method that checks if the username and password is correct
+            if (((cButton)this).checkCreds(username, password)){
+                temp = true;
+            }else{
+                temp = false;
+                this.setL("try again");
+            }
+        } else{
+            temp = true;
+        }
+
+        return temp;
+    }
+
     public int getX() {
         return x;
     }
