@@ -1,4 +1,0 @@
-testuser
-testpassword
-plant: assets/images/testuser/test.gif
-plant: assets/images/testuser/monkey.png

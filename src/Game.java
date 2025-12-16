@@ -16,7 +16,7 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 	private BufferedImage back; 
 	private int key, x, y, hi, wi, rem; 
 
-	private String screen, speaker;
+	private String screen, speaker, screen2;
 
     private tButton logInButton, signUpButton;
 	private iButton homeButton, gHButton, weatherButton, aPButton;
@@ -43,6 +43,7 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 		this.addMouseListener(this);
 		this.addMouseMotionListener(this);
 		screen = "landing";
+		screen2 = "landing";
 		wi = Toolkit.getDefaultToolkit().getScreenSize().width;
         hi = Toolkit.getDefaultToolkit().getScreenSize().height;
 
@@ -139,6 +140,13 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 
 	private void drawScreens(Graphics g2d){
 
+		if (!images.isEmpty()){
+			for (int i = 0; i < images.size(); i++) {
+				g2d.drawImage(new ImageIcon(images.get(i).getP()).getImage(), images.get(i).getX(), images.get(i).getY(), images.get(i).getW(), images.get(i).getH(), this);
+				// System.out.println(images.get(i).getP());
+			}
+		}
+
 		if (!buttons.isEmpty()){
 			for (int i = 0; i < buttons.size(); i++) {
 				Button b = buttons.get(i);
@@ -158,15 +166,6 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 				
 			}
 		}
-
-		if (!images.isEmpty()){
-			for (int i = 0; i < images.size(); i++) {
-				g2d.drawImage(new ImageIcon(images.get(i).getP()).getImage(), images.get(i).getX(), images.get(i).getY(), images.get(i).getW(), images.get(i).getH(), this);
-				// System.out.println(images.get(i).getP());
-			}
-		}
-		
-
 		
 		switch (screen){
 			
@@ -202,6 +201,13 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 		while(!buttons.isEmpty()){
 			buttons.remove(buttons.get(0));
 		}
+
+		while(!images.isEmpty()&&!screen.equals(screen2)){
+			System.out.println("running should be removing");
+			
+			images.remove(images.get(0));
+		}
+		screen2 = screen;
 
 	}
 
@@ -278,14 +284,14 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 				if (temp.startsWith("plant: ")){
 	
 	
-					images.add(new Pic(temp.substring(temp.indexOf(": ")+2), 100, 100, tx, ty));
+					images.add(new Pic(temp.substring(temp.indexOf(": ")+2), 100, 120, tx, ty));
 					
 					// for (int i = 0; i < images.size(); i++) {
 					// }
 	
 					tx += 110;
 				} else {
-					System.out.println("no line found");
+					// System.out.println("no line found");
 				}
 
 				// scanner.close();

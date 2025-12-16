@@ -77,7 +77,7 @@ public class sButton extends tButton{
                 e.printStackTrace();
             }
 
-            s.remove(0);
+            // s.remove(0);
     }
 
 
