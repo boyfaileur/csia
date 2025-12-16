@@ -39,6 +39,7 @@ public class cButton extends tButton{
                 while(scanner.hasNextLine()){
                     if (scanner.nextLine().equals(password)){
                         temp = true;
+                        break;
                     } else{
                         temp = false;
                     }

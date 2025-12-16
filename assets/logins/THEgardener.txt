@@ -1,2 +1,4 @@
 THEgardener
 ilovegardening123
+plant: assets/images/THEgardener/testtesteest.jpeg
+plant: assets/images/THEgardener/hello.gif

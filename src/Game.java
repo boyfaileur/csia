@@ -3,7 +3,10 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Scanner;
+
 import javax.swing.*; 
 
 
@@ -159,7 +162,7 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 		if (!images.isEmpty()){
 			for (int i = 0; i < images.size(); i++) {
 				g2d.drawImage(new ImageIcon(images.get(i).getP()).getImage(), images.get(i).getX(), images.get(i).getY(), images.get(i).getW(), images.get(i).getH(), this);
-				System.out.println(images.get(i).getP());
+				// System.out.println(images.get(i).getP());
 			}
 		}
 		
@@ -260,6 +263,39 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 		buttons.add(gHButton);
 		buttons.add(weatherButton);
 		buttons.add(aPButton);
+
+		Scanner scanner;
+		int tx = 20;
+		int ty = 200;
+		try {
+			scanner = new Scanner(new File ("assets/logins/" + uNInput.getS() + ".txt"));
+
+			while (scanner.hasNext()){
+				String temp = scanner.nextLine();
+
+	
+	
+				if (temp.startsWith("plant: ")){
+	
+	
+					images.add(new Pic(temp.substring(temp.indexOf(": ")+2), 100, 100, tx, ty));
+					
+					// for (int i = 0; i < images.size(); i++) {
+					// }
+	
+					tx += 110;
+				} else {
+					System.out.println("no line found");
+				}
+
+				// scanner.close();
+			}
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
 
 	}
 
@@ -411,7 +447,7 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 						if (buttons.get(i).switchScreen(uNInput.getS(), pWInput.getS())){
 							screen = buttons.get(i).getD();
 						}
-					System.out.println(screen);
+					// System.out.println(screen);
 					}
 
 					if (buttons.get(i) instanceof textInput){
@@ -443,7 +479,7 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 
 							if (buttons.get(j).equals(pNInput)){
 								tempName = pNInput.getS();
-								System.out.println(tempName);
+								// System.out.println(tempName);
 
 							}
 							((textInput)buttons.get(j)).setS("");
@@ -457,7 +493,7 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 							
 						}
 
-						System.out.println("file: " + tempFile.toString());
+						// System.out.println("file: " + tempFile.toString());
 						((sButton)buttons.get(i)).makePlant(tempFile, uNInput.getS(), tempName, images);
 						
 					}
