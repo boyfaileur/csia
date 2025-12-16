@@ -30,7 +30,7 @@ public class sButton extends tButton{
             // numberFile.write(String.valueOf(count+1));
             // numberFile.close();
             loginFiles.write(t1.getS()+ "\n");
-            loginFiles.write(t2.getS()+ "\n");
+            loginFiles.write(t2.getS()+ "\n"+"\n");
             loginFiles.close();
         } catch (IOException e) {
             // TODO Auto-generated catch block
@@ -58,6 +58,20 @@ public class sButton extends tButton{
             try {
                 Files.copy(file.toPath(), destPath, StandardCopyOption.REPLACE_EXISTING);
                
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+
+            try {
+                // System.out.println("assets/logins/" + username + ".txt");
+                FileWriter aPToFile = new FileWriter("assets/logins/" + username + ".txt", true);
+                
+                aPToFile.append("plant: " + destPath.toString()+"\n");
+
+                System.out.println("plant: " + destPath.toString()+"\n");
+                aPToFile.close();
+
             } catch (IOException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
