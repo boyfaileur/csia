@@ -16,7 +16,7 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 	private BufferedImage back; 
 	private int key, x, y, hi, wi, rem; 
 
-	private String screen, speaker, screen2;
+	private String screen, currentPlant, screen2;
 
     private tButton logInButton, signUpButton;
 	private iButton homeButton, gHButton, weatherButton, aPButton;
@@ -51,6 +51,9 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 		key =-1; 
 		x=0;
 		y=0;
+
+		// strings
+		currentPlant = "";
 
 		// files
 		tempFile = new File("");
@@ -141,8 +144,12 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 	private void drawScreens(Graphics g2d){
 
 		if (!images.isEmpty()){
+			int tx = 20;
+			int ty = 200;
 			for (int i = 0; i < images.size(); i++) {
-				g2d.drawImage(new ImageIcon(images.get(i).getP()).getImage(), images.get(i).getX(), images.get(i).getY(), images.get(i).getW(), images.get(i).getH(), this);
+
+				g2d.drawImage(new ImageIcon(images.get(i).getP()).getImage(), tx, ty, images.get(i).getW(), images.get(i).getH(), this);
+				tx += 110;
 				// System.out.println(images.get(i).getP());
 			}
 		}
@@ -189,6 +196,9 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 			break;
 			case "plantAdd":
 				plantAdd(g2d);
+			break;
+			case "currPlant":
+				currPlant(g2d);
 			break;
 		}
 		
@@ -278,38 +288,6 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 
 		
 
-		
-		// try {
-		// 	scanner = new Scanner(new File ("assets/logins/" + uNInput.getS() + "/" + "plantlist.txt"));
-
-		// 	while (scanner.hasNext()){
-		// 		String temp = scanner.nextLine();
-
-	
-	
-		// 		if (temp.startsWith("plant: ")){
-	
-	
-		// 			
-					
-		// 			// for (int i = 0; i < images.size(); i++) {
-		// 			// }
-	
-		// 			tx += 110;
-		// 		} else {
-		// 			// System.out.println("no line found");
-		// 		}
-
-		// 		// scanner.close();
-		// 	}
-		// } catch (FileNotFoundException e) {
-		// 	// TODO Auto-generated catch block
-		// 	e.printStackTrace();
-		// }
-		
-		
-		
-
 	}
 
 	public void plantAdd(Graphics g2d){
@@ -326,6 +304,50 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 
 		buttons.add(savePlant);
 
+	}
+
+	public void currPlant(Graphics g2d){
+		removal();
+
+		g2d.setColor(Color.BLACK);
+		g2d.drawString(new File (currentPlant).getName(), 110, 100);
+
+		buttons.add(homeButton);
+		buttons.add(gHButton);
+		buttons.add(weatherButton);
+
+		File[] temp = new File(currentPlant).listFiles();
+
+		for (File t : temp){
+			drawPlants(t);
+		}
+
+	}
+
+
+	// methods
+
+	public void drawPlants(File file){
+		String name = file.getName().toLowerCase(); 
+		if (name.endsWith(".png") || 
+		name.endsWith(".jpg") || 
+		name.endsWith(".jpeg") || 
+		name.endsWith(".gif")) {
+			
+			Pic p = new Pic(file.getPath(), 100, 120);
+			// if (!images.contains(p)){
+
+			// }
+
+			for (int i = 0; i < images.size(); i++) {
+				if (images.get(i).getP().equals(p.getP())){
+					return;
+				}
+			}
+			images.add(p);
+
+
+		}
 	}
 
 	public void checkThumbnail(File folder){
@@ -570,6 +592,19 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 				
 
 			}}
+
+			if (screen.equals("greenhouse")){
+				if (!images.isEmpty()){
+					for (int i = 0; i < images.size(); i++) {
+						Pic p = images.get(i);
+						if (p.clicked(x, y)){
+							currentPlant = ((new File (p.getP()).getParent()));
+							System.out.println(currentPlant);
+							screen = "currPlant";
+						}
+					}
+				}
+			}
 		
 	}
 	

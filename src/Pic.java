@@ -7,12 +7,32 @@ public class Pic {
 
     }
 
+    public Pic(String pic, int width, int height){
+        p = pic;
+        w = width;
+        h = height;
+    
+    }
+
     public Pic(String pic, int width, int height, int x1, int y1){
         p = pic;
         w = width;
         h = height;
         x= x1;
         y = y1;
+    }
+
+    public boolean clicked(int mx, int my ){
+        boolean temp;
+
+        if ((mx > x && mx < x+w)&&(my> y && my< y + h)){
+            temp = true;
+
+        } else {
+            temp = false;
+        }
+
+        return temp;
     }
 
     public String getP() {
