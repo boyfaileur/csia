@@ -202,11 +202,15 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 			buttons.remove(buttons.get(0));
 		}
 
-		while(!images.isEmpty()&&!screen.equals(screen2)){
-			System.out.println("running should be removing");
-			
+		while(!images.isEmpty()&&!screen.equals(screen2)){			
 			images.remove(images.get(0));
 		}
+		
+		if (screen.equals("greenhouse")&&!screen.equals(screen2)){
+			checkThumbnail(new File("assets/logins/" + uNInput.getS()));
+
+		}
+
 		screen2 = screen;
 
 	}
@@ -271,35 +275,38 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 		buttons.add(aPButton);
 
 		Scanner scanner;
-		int tx = 20;
-		int ty = 200;
-		try {
-			scanner = new Scanner(new File ("assets/logins/" + uNInput.getS() + ".txt"));
 
-			while (scanner.hasNext()){
-				String temp = scanner.nextLine();
+		
+
+		
+		// try {
+		// 	scanner = new Scanner(new File ("assets/logins/" + uNInput.getS() + "/" + "plantlist.txt"));
+
+		// 	while (scanner.hasNext()){
+		// 		String temp = scanner.nextLine();
 
 	
 	
-				if (temp.startsWith("plant: ")){
+		// 		if (temp.startsWith("plant: ")){
 	
 	
-					images.add(new Pic(temp.substring(temp.indexOf(": ")+2), 100, 120, tx, ty));
+		// 			
 					
-					// for (int i = 0; i < images.size(); i++) {
-					// }
+		// 			// for (int i = 0; i < images.size(); i++) {
+		// 			// }
 	
-					tx += 110;
-				} else {
-					// System.out.println("no line found");
-				}
+		// 			tx += 110;
+		// 		} else {
+		// 			// System.out.println("no line found");
+		// 		}
 
-				// scanner.close();
-			}
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		// 		// scanner.close();
+		// 	}
+		// } catch (FileNotFoundException e) {
+		// 	// TODO Auto-generated catch block
+		// 	e.printStackTrace();
+		// }
+		
 		
 		
 
@@ -320,6 +327,54 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 		buttons.add(savePlant);
 
 	}
+
+	public void checkThumbnail(File folder){
+		int tx = 20;
+		int ty = 200;
+		// System.out.println(folder.toString());
+
+
+
+		File[] temp = folder.listFiles(); 
+
+		if (temp != null) { 
+			ArrayList<File> files = new ArrayList<File>();
+			ArrayList<File> subfiles = new ArrayList<File>();
+
+			for (File t : temp) {
+				files.add(t);
+			 }
+
+			 for (int j = 0; j < files.size(); j++) {
+				File f = files.get(j);
+
+				if (f.isFile()&&f.getName().startsWith("thumbnail.")) { 
+
+					System.out.println(f.getPath());
+					tx += images.size()*110;
+					images.add(new Pic(f.getPath(), 100, 120, tx, ty));
+				} 
+					
+				if (f.isDirectory()) {
+					
+					subfiles.add(f);
+					
+					}
+					
+					
+				} 
+				if (!subfiles.isEmpty()){
+					for (int i = 0; i < subfiles.size(); i++) {
+						
+						checkThumbnail(subfiles.get(i));
+					}
+				}
+				 
+			 }
+			
+		}
+	
+	
 
 	// other 
 
@@ -439,7 +494,6 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 			for (int i = 0; i < buttons.size(); i++) {
 				if (buttons.get(i).clicked(x, y)){
 
-					
 
 					if ((buttons.get(i) instanceof iButton|| buttons.get(i) instanceof tButton)){
 
@@ -452,6 +506,9 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 
 						if (buttons.get(i).switchScreen(uNInput.getS(), pWInput.getS())){
 							screen = buttons.get(i).getD();
+							if (screen.equals("greenhouse")){
+
+							}
 						}
 					// System.out.println(screen);
 					}
