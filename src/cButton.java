@@ -26,12 +26,15 @@ public class cButton extends tButton{
                     while(scanner.hasNextLine()){
                         String check = scanner.nextLine();
 
+                        System.out.println("password:" + password);
                         System.out.println(check);
-                        if (check.equals(password)){
+                        if (password.equals(check)){
+                            System.out.println("ahdsjashjkdsajddas");
                             temp = true;
                             break;
                         } else{
                             temp = false;
+                            break;
                         }
                     }
     

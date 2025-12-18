@@ -19,7 +19,7 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 	private String screen, currentPlant, screen2;
 
     private tButton logInButton, signUpButton;
-	private iButton homeButton, gHButton, weatherButton, aPButton;
+	private iButton homeButton, gHButton, weatherButton, aPButton, addPic;
 	private textInput uNInput, pWInput, pNInput;
 	private sButton saveButton, savePlant;
 	private cButton checkButton;
@@ -69,13 +69,13 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 		signUpButton = new tButton("sign up", "signup", 125, 345, new Color(80, 105, 62), Color.white);
 		
 		// text inputs
-		uNInput = new textInput(20, 100, 300, 30);
-		pWInput = new textInput(20, 150, 300, 30);
+		uNInput = new textInput(20, 260, 300, 30);
+		pWInput = new textInput(20, 360, 300, 30);
 		pNInput = new textInput(20, 210, 300, 30);
 
 		// save and check buttons
-		saveButton = new sButton("save", "landing", 135, 225, new Color(80, 105, 62), Color.white);
-		checkButton = new cButton ("enter", "home", 135, 225, new Color(80, 105, 62), Color.white);
+		saveButton = new sButton("save", "landing", 135, 430, new Color(80, 105, 62), Color.white);
+		checkButton = new cButton ("enter", "home", 135, 430, new Color(80, 105, 62), Color.white);
 
 		savePlant = new sButton("confirm", "greenhouse", 128, 510, new Color(80, 105, 62), Color.white);
 
@@ -88,6 +88,7 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 		weatherButton = new iButton("assets/icons/wIcon.png", "weather", 10, 575,100, 100);
 
 		aPButton = new iButton("assets/icons/addIcon.png", "plantAdd", 150, 125, 75, 75);
+		addPic = new iButton("assets/icons/picIcon.png", "imageAdd", 180, 125, 75, 75);
 		
 	}
 
@@ -144,9 +145,15 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 	private void drawScreens(Graphics g2d){
 
 		if (!images.isEmpty()){
-			int tx = 20;
-			int ty = 200;
+			int tx = 15;
+			int ty = 220;
+
+			if (screen.equals("plantAdd")){
+				ty = 353;
+			}
+
 			for (int i = 0; i < images.size(); i++) {
+				
 
 				g2d.drawImage(new ImageIcon(images.get(i).getP()).getImage(), tx, ty, images.get(i).getW(), images.get(i).getH(), this);
 				tx += 110;
@@ -173,17 +180,22 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 				
 			}
 		}
+
+		g2d.setColor(Color.BLACK);
+
 		
 		switch (screen){
+
+			
 			
 			case "landing":
 			landing(g2d);
 			break;
 			case "login":
-			login();
+			login(g2d);
 			break;
 			case "signup":
-			signup();
+			signup(g2d);
 			break;
 			case "home":
 				home(g2d);
@@ -199,6 +211,9 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 			break;
 			case "currPlant":
 				currPlant(g2d);
+			break;
+			case "imageAdd":
+				imageAdd(g2d);
 			break;
 		}
 		
@@ -229,20 +244,31 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 		removal();
 		g2d.setColor(Color.BLACK);
 		g2d.drawString("DIGIGARDEN", 115, 150);
+
 		buttons.add(logInButton);
 		buttons.add(signUpButton);
 
 	}
 
-	public void login(){
+	public void login(Graphics g2d){
 		removal();
+
+		g2d.drawString("username", 25, 250);
+
+		g2d.drawString("password", 25, 350);
+
 		buttons.add(uNInput);
 		buttons.add(pWInput);
 		buttons.add(checkButton);
 	}
 
-	public void signup(){
+	public void signup(Graphics g2d){
 		removal();
+
+		g2d.drawString("username", 25, 250);
+
+		g2d.drawString("password", 25, 350);
+
 		buttons.add(uNInput);
 		buttons.add(pWInput);
 		buttons.add(saveButton);
@@ -283,9 +309,6 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 		buttons.add(gHButton);
 		buttons.add(weatherButton);
 		buttons.add(aPButton);
-
-		Scanner scanner;
-
 		
 
 	}
@@ -315,12 +338,28 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 		buttons.add(homeButton);
 		buttons.add(gHButton);
 		buttons.add(weatherButton);
+		buttons.add(addPic);
 
 		File[] temp = new File(currentPlant).listFiles();
 
 		for (File t : temp){
 			drawPlants(t);
 		}
+
+	}
+
+	public void imageAdd(Graphics g2d){
+		removal();
+
+		g2d.setColor(Color.BLACK);
+		g2d.drawString("ADD AN IMAGE", 110, 100);
+
+		g2d.drawString("PLANT IMAGE", 25, 275);
+
+		pNInput.setS(new File(currentPlant).getName());
+		buttons.add(imgUpload);
+
+		buttons.add(savePlant);
 
 	}
 
@@ -372,7 +411,6 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 
 				if (f.isFile()&&f.getName().startsWith("thumbnail.")) { 
 
-					System.out.println(f.getPath());
 					tx += images.size()*110;
 					images.add(new Pic(f.getPath(), 100, 120, tx, ty));
 				} 
@@ -570,15 +608,9 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 							((textInput)buttons.get(j)).setS("");
 							}
 
-							// if (buttons.get(j) instanceof uLButton){
-
-							// 	
-							// 	System.out.println(tempFile.toString());	
-							// }
-							
+					
 						}
 
-						// System.out.println("file: " + tempFile.toString());
 						((sButton)buttons.get(i)).makePlant(tempFile, uNInput.getS(), tempName, images);
 						
 					}
@@ -599,7 +631,6 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 						Pic p = images.get(i);
 						if (p.clicked(x, y)){
 							currentPlant = ((new File (p.getP()).getParent()));
-							System.out.println(currentPlant);
 							screen = "currPlant";
 						}
 					}

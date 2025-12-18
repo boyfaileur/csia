@@ -19,21 +19,13 @@ public class sButton extends tButton{
 
     public void save(textInput t1, textInput t2){
         try {
-            // Scanner scanner = new Scanner(new File("assets/logins/" + t1.getS() + "/password.txt"));
-            // while(scanner.hasNextLine()){
-            //     count = Integer.parseInt(scanner.nextLine());
-            // }
+        
             File userFolder = new File("assets/logins/" + t1.getS()); 
             if (!userFolder.exists()) { 
                 userFolder.mkdirs();
                 }
 
             FileWriter loginFiles = new FileWriter("assets/logins/" + t1.getS() + "/password.txt", false);
-            // System.out.println("doing this lalalalal");
-            // FileWriter numberFile = new FileWriter("assets/logins/number");
-
-            // numberFile.write(String.valueOf(count+1));
-            // numberFile.close();
             loginFiles.write(t2.getS()+ "\n"+"\n");
             loginFiles.close();
         } catch (IOException e) {
@@ -58,12 +50,12 @@ public class sButton extends tButton{
             }
 
             Path destPath = Paths.get(destFolder.getPath(), "thumbnail" + extension);
+            int count = 1;
 
-            // int counter = 1; 
-            // while (Files.exists(destPath)) { 
-            //     destPath = Paths.get(destFolder.getPath(), pName + counter); 
-            //     counter++; }
+            checkExist(destFolder, destPath, pName, extension);
+            
 
+     
             try {
                 Files.copy(file.toPath(), destPath, StandardCopyOption.REPLACE_EXISTING);
                
@@ -72,21 +64,21 @@ public class sButton extends tButton{
                 e.printStackTrace();
             }
 
-            // try {
-                // System.out.println("assets/logins/" + username + ".txt");
-                // FileWriter aPToFile = new FileWriter("assets/logins/" + username + "/" + "plantlist.txt", true);
-                
-                // aPToFile.append("plant: " + destPath.toString()+"\n");
+         
+    }
 
-                // System.out.println("plant: " + destPath.toString()+"\n");
-                // aPToFile.close();
+    public void checkExist(File destFolder, Path destPath, String pName, String extension){
 
-            // } catch (IOException e) {
-            //     // TODO Auto-generated catch block
-            //     e.printStackTrace();
-            // }
+        if (new File (destPath.toString()).exists()){
+            destPath = Paths.get(destFolder.getPath(), pName + count + extension);
+            if (new File (destPath.toString()).exists()){
+                count++;
+                destPath = Paths.get(destFolder.getPath(), pName + count + extension);
+                checkExist(destFolder, destPath, pName, extension);
 
-            // s.remove(0);
+            }
+        }
+
     }
 
 
